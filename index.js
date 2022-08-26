@@ -205,7 +205,7 @@ function uploadFile(req, tmpDir, maxFileSize, maxChunkSize) {
             const postParams = {};
             let limitReached = false;
             let getFileStatus;
-            const busboy = new Busboy({ headers: req.headers, limits: { files: 1, fileSize: maxChunkSize * 1000 * 1000 } });
+            const busboy = Busboy({ headers: req.headers, limits: { files: 1, fileSize: maxChunkSize * 1000 * 1000 } });
             console.log(111, getFileStatus, busboy)
 
             busboy.on('file', (fieldname, fileStream) => {
