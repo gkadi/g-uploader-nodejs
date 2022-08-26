@@ -1,6 +1,6 @@
 {
   "name": "g-uploader-nodejs",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "description": "Node module to handle chunked file upload and reassemble them when into a single file",
   "main": "index.js",
   "repository": {
