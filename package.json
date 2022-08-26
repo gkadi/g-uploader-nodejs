@@ -1,11 +1,11 @@
 {
-  "name": "huge-uploader-nodejs",
-  "version": "1.2.1",
+  "name": "g-uploader-nodejs",
+  "version": "1.2.5",
   "description": "Node module to handle chunked file upload and reassemble them when into a single file",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Buzut/huge-uploader-nodejs.git"
+    "url": "https://github.com/gkadi/g-uploader-nodejs.git"
   },
   "keywords": [
     "upload",
@@ -18,7 +18,7 @@
     "nodejs",
     "busboy"
   ],
-  "author": "Buzut (buzut.net)",
+  "author": "GKadi",
   "license": "BSD-3-Clause",
   "bugs": {
     "url": "https://github.com/Buzut/huge-uploader-nodejs/issues"
@@ -27,7 +27,7 @@
     "prepare": "test -d .git && cd .git/hooks/ && curl -O https://raw.githubusercontent.com/Buzut/git-emojis-hook/master/commit-msg && curl -O https://raw.githubusercontent.com/Buzut/git-emojis-hook/master/prepare-commit-msg && chmod +x * || exit 0"
   },
   "dependencies": {
-    "busboy": "^0.2.14"
+    "busboy": "^1.6.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1",

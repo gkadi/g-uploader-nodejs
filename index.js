@@ -109,6 +109,8 @@ function mkdirIfDoesntExist(dirPath, callback) {
  * @return { Function } getFileStatus – cb based function to know when file is written. callback(err, assembleChunks ƒ)
  */
 function handleFile(tmpDir, headers, fileStream, postParams) {
+    console.log(111100, "handleFile", tmpDir)
+
     const dirPath = path.join(tmpDir, `${headers['uploader-file-id']}_tmp`);
     const chunkPath = path.join(dirPath, headers['uploader-chunk-number']);
     const chunkCount = +headers['uploader-chunk-number'];
@@ -168,6 +170,7 @@ function handleFile(tmpDir, headers, fileStream, postParams) {
             else writeFile();
         });
     }
+    console.log(1111000111, "handleFile", tmpDir)
 
     return (callback) => {
         if (finished && !error) callback(null, assembleChunksPromise);
@@ -202,16 +205,16 @@ function uploadFile(req, tmpDir, maxFileSize, maxChunkSize) {
             const postParams = {};
             let limitReached = false;
             let getFileStatus;
-
             const busboy = new Busboy({ headers: req.headers, limits: { files: 1, fileSize: maxChunkSize * 1000 * 1000 } });
+            console.log(111, getFileStatus, busboy)
 
             busboy.on('file', (fieldname, fileStream) => {
                 fileStream.on('limit', () => {
                     limitReached = true;
                     fileStream.resume();
                 });
-
                 getFileStatus = handleFile(tmpDir, req.headers, fileStream, postParams);
+                console.log(222, getFileStatus)
             });
 
             busboy.on('field', (key, val) => {
@@ -223,11 +226,15 @@ function uploadFile(req, tmpDir, maxFileSize, maxChunkSize) {
                     reject(new Error('Chunk is above size limit'));
                     return;
                 }
-
-                getFileStatus((fileErr, assembleChunksF) => {
-                    if (fileErr) reject(fileErr);
-                    else resolve(assembleChunksF);
-                });
+                console.log(333, getFileStatus)
+                if(getFileStatus){
+                    getFileStatus((fileErr, assembleChunksF) => {
+                        if (fileErr) reject(fileErr);
+                        else resolve(assembleChunksF);
+                    });
+                }else{
+                    reject("getFileStatus is undefined")
+                }
             });
 
             req.pipe(busboy);
